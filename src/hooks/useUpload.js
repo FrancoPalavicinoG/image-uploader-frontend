@@ -15,7 +15,10 @@ export function useUpload() {
             const response = await uploadFile(file);
             setData(response);
         } catch (err) {
-            setError(err);
+            const backendMessage =
+                err.response?.data?.message || "Unkown error occurred during upload.";
+        
+            setError({ message: backendMessage });
         } finally {
             setLoading(false);
         }

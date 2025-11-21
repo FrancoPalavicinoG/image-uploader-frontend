@@ -27,22 +27,22 @@ export default function HomePage() {
 
             {/* Error subida */}
             {error && (
-                <Alert type="error" message={`Error al subir la imagen: ${error.message}`} />
+                <Alert type="error" message={`Error uploading the image: ${error.message}`} />
             )}
 
 
-            {/* Vista previa (antes del upload final) */}
+            {/* Vista previa */}
             {selectedFile && !loading && (
                 <UploadPreview file={selectedFile} />
             )}
 
             {/* Éxito */}
             {data && (
-                <Alert type="success" message="Imagen subida correctamente ✓" />
+                <Alert type="success" message="Image uploaded successfully!" />
             )}
 
 
-            {/* Sección descarga visible SOLO cuando data existe */}
+            {/* Sección descarga */}
             {data && (
                 <div className="mt-6">
                     {/* Botones juntos */}
@@ -64,7 +64,7 @@ export default function HomePage() {
                     </div>
                     {/* Error descarga */}
                     {downloadError && (
-                        <Alert type="error" message={`Error al descargar: ${downloadError.message}`} />
+                        <Alert type="error" message={`Downloading error: ${downloadError.message}`} />
                     )}
 
                     {/* Vista previa desde el servidor (blob) */}
