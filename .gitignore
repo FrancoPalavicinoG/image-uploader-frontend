@@ -13,10 +13,6 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 
-# Build de Vite
-dist/
-dist-ssr/
-*.local
 
 # Logs
 logs/
