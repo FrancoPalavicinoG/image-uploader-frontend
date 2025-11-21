@@ -2,6 +2,7 @@ import DropzoneArea from '../components/DropzoneArea';
 import UploadPreview from '../components/UploadPreview';
 import ShareButton from '../components/ShareButton';
 import Loader from '../components/Loader';
+import Alert from "../components/Alert";
 import { useUpload } from '../hooks/useUpload';
 import { useDownload } from '../hooks/useDownload';
 
@@ -17,7 +18,6 @@ export default function HomePage() {
 
     return (
         <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Subir Imagen</h1>
 
             {/* Dropzone */}
             <DropzoneArea onFileSelected={handleUpload} />
@@ -25,12 +25,11 @@ export default function HomePage() {
             {/* Loader de subida */}
             {loading && <Loader />}
 
-            {/* Error de subida */}
+            {/* Error subida */}
             {error && (
-                <div className="text-red-500 mt-4">
-                    Error al subir la imagen: {error.message}
-                </div>
+                <Alert type="error" message={`Error al subir la imagen: ${error.message}`} />
             )}
+
 
             {/* Vista previa (antes del upload final) */}
             {selectedFile && !loading && (
@@ -39,10 +38,9 @@ export default function HomePage() {
 
             {/* Éxito */}
             {data && (
-                <p className="mt-4 text-green-600">
-                    Imagen subida correctamente ✓
-                </p>
+                <Alert type="success" message="Imagen subida correctamente ✓" />
             )}
+
 
             {/* Sección descarga visible SOLO cuando data existe */}
             {data && (
@@ -50,28 +48,58 @@ export default function HomePage() {
                     <button
                         onClick={() => handleDownload(data.filename)}
                         disabled={downloading}
-                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
-                    >
-                        {downloading ? "Descargando..." : "Descargar imagen"}
+                        className={
+                            downloading
+                            ? "px-5 py-3 rounded-xl font-medium transition-all duration-300 border backdrop-blur-md shadow-sm bg-gray-400 text-white border-gray-500 cursor-not-allowed"
+                            : "px-5 py-3 rounded-xl font-medium transition-all duration-300 border backdrop-blur-md shadow-sm bg-white/60 dark:bg-gray-800/60 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 hover:bg-white/80 dark:hover:bg-gray-700/80"
+                        }
+                        >
+                        {downloading ? "Downloading..." : "Download Image"}
                     </button>
 
-                    {/* Error de descarga */}
+                    {/* Error descarga */}
                     {downloadError && (
-                        <p className="text-red-500 mt-2">
-                            Error al descargar: {downloadError.message}
-                        </p>
+                        <Alert type="error" message={`Error al descargar: ${downloadError.message}`} />
                     )}
 
                     {/* Vista previa desde el servidor (blob) */}
                     {imageURL && (
-                        <div className="mt-4">
-                            <h3 className="text-lg font-medium mb-2">Imagen descargada desde el servidor:</h3>
+                    <div className="mt-10 flex justify-center">
+                        <div
+                            className="
+                                w-full max-w-3xl
+                                bg-transparent
+                                rounded-2xl
+                                shadow-md
+                                border 
+                                border-gray-300 dark:border-gray-600
+                                p-6 
+                                transition-all 
+                                duration-300
+                            "
+                        >
+                        {/* Título */}
+                        <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
+                            Image Downloaded Preview
+                        </h3>
+
+                        {/* Contenedor imagen */}
+                        <div
+                            className="
+                            rounded-xl 
+                            overflow-hidden 
+                            border border-gray-200 dark:border-gray-700 
+                            shadow-sm
+                            "
+                        >
                             <img
-                                src={imageURL}
-                                alt="Imagen descargada"
-                                className="max-w-full h-auto rounded"
+                            src={imageURL}
+                            alt="Imagen descargada"
+                            className="w-full h-auto object-cover"
                             />
                         </div>
+                        </div>
+                    </div>
                     )}
 
                     {/* Botón de compartir URL después de subir imagen */}
