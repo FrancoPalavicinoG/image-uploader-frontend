@@ -1,5 +1,6 @@
 import DropzoneArea from '../components/DropzoneArea';
 import UploadPreview from '../components/UploadPreview';
+import ShareButton from '../components/ShareButton';
 import Loader from '../components/Loader';
 import { useUpload } from '../hooks/useUpload';
 import { useDownload } from '../hooks/useDownload';
@@ -72,6 +73,9 @@ export default function HomePage() {
                             />
                         </div>
                     )}
+
+                    {/* Botón de compartir URL después de subir imagen */}
+                    <ShareButton url={data.url} />
                 </div>
             )}
         </div>
