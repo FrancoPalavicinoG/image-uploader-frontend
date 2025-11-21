@@ -45,18 +45,23 @@ export default function HomePage() {
             {/* Sección descarga visible SOLO cuando data existe */}
             {data && (
                 <div className="mt-6">
-                    <button
-                        onClick={() => handleDownload(data.filename)}
-                        disabled={downloading}
-                        className={
-                            downloading
-                            ? "px-5 py-3 rounded-xl font-medium transition-all duration-300 border backdrop-blur-md shadow-sm bg-gray-400 text-white border-gray-500 cursor-not-allowed"
-                            : "px-5 py-3 rounded-xl font-medium transition-all duration-300 border backdrop-blur-md shadow-sm bg-white/60 dark:bg-gray-800/60 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 hover:bg-white/80 dark:hover:bg-gray-700/80"
-                        }
-                        >
-                        {downloading ? "Downloading..." : "Download Image"}
-                    </button>
+                    {/* Botones juntos */}
+                    <div className="flex gap-4">
+                        <button
+                            onClick={() => handleDownload(data.filename)}
+                            disabled={downloading}
+                            className={
+                                downloading
+                                ? "px-5 py-3 rounded-xl font-medium transition-all duration-300 border backdrop-blur-md shadow-sm bg-gray-400 text-white border-gray-500 cursor-not-allowed"
+                                : "px-5 py-3 rounded-xl font-medium transition-all duration-300 border backdrop-blur-md shadow-sm bg-white/60 dark:bg-gray-800/60 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 hover:bg-white/80 dark:hover:bg-gray-700/80"
+                            }
+                            >
+                            {downloading ? "Downloading..." : "Download Image"}
+                        </button>
 
+                        {/* Botón de compartir URL después de subir imagen */}
+                        <ShareButton url={data.url} />
+                    </div>
                     {/* Error descarga */}
                     {downloadError && (
                         <Alert type="error" message={`Error al descargar: ${downloadError.message}`} />
@@ -101,9 +106,6 @@ export default function HomePage() {
                         </div>
                     </div>
                     )}
-
-                    {/* Botón de compartir URL después de subir imagen */}
-                    <ShareButton url={data.url} />
                 </div>
             )}
         </div>
