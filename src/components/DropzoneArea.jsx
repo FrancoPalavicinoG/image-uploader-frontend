@@ -52,7 +52,7 @@ export default function DropzoneArea({ onFileSelected }) {
         {/* Mensaje */}
         <p className="text-gray-700 dark:text-gray-200 text-lg font-medium">
           {isDragActive ? (
-            "Suelta la imagen aquí..."
+            "Drop the image here..."
           ) : (
             <>
               <span className="font-semibold">Drag & drop</span> a file or{" "}
